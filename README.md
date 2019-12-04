@@ -2,9 +2,10 @@
 
 Terraform module to provision IAM users, optionally creating API keys, console access and/or associate with (existing) groups.
 
-## Requirements
+## Prerequisites
 
-A recent (> 0.12.17) version of [Terraform](https://www.terraform.io/downloads.html).
+* A recent (> 0.12.17) version of [Terraform](https://www.terraform.io/downloads.html).
+* User groups must exist in IAM.
 
 ## Usage
 
