@@ -28,30 +28,7 @@ module "users" {
 | pgp_key    |   | A base-64 encoded PGP public key, or a keybase username in the form keybase:username. Required to encrypt secrets.  | Yes      |
 | tags    | {}  | Optional resource tags | No |
 
-Example users map (configure in a `terraform.tfvars`):
-
-```
-users = {
-  "foo" = {
-    name          = "foo"
-    path          = "/"
-    force_destroy = true
-    tag_email     = "foo@domain"
-    groups        = [ "Developer" ]
-    console       = true
-    api           = true
-  }
-  "bar" = {
-    name          = "bar"
-    path          = "/"
-    force_destroy = true
-    tag_email     = "bar@domain"
-    groups        = [ "Admin" ]
-    console       = false
-    api           = true
-  }
-}
-```
+See `terraform.tfvars.example` for example users map.
 
 ## Outputs
 
