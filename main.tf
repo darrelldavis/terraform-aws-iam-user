@@ -8,7 +8,7 @@ resource "aws_iam_user" "user" {
   path          = each.value["path"]
   force_destroy = each.value["force_destroy"]
 
-  tags = map("EmailAddress", each.value["tag_email"])
+  tags = merge(var.tags, map("EmailAddress", each.value["tag_email"]))
 }
 
 # Create list of users with API access
@@ -25,7 +25,6 @@ resource "aws_iam_access_key" "accesskey" {
 
   user    = each.key
   pgp_key = var.pgp_key
-
 }
 
 # Create list of users with console access
@@ -49,7 +48,6 @@ resource "aws_iam_user_login_profile" "profile" {
   lifecycle {
     ignore_changes = [ password_length, password_reset_required, pgp_key ]
   }
-
 }
 
 # Add users to existing group(s)

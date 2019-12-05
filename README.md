@@ -26,6 +26,7 @@ module "users" {
 |:-----------------------------|:--------------:|:------------------------------------------------------------|:--------:|
 | users    |  | Map of users and user attributes - see example.   | Yes      |
 | pgp_key    |   | A base-64 encoded PGP public key, or a keybase username in the form keybase:username. Required to encrypt secrets.  | Yes      |
+| tags    | {}  | Optional resource tags | No |
 
 Example users map (configure in a `terraform.tfvars`):
 
@@ -57,6 +58,10 @@ users = {
 | Name              | Description            |
 |:------------------|:----------------------|
 | user_infos    | User attributes  |
+
+## Related
+
+* [https://github.com/darrelldavis/terraform-aws-iam-group](https://github.com/darrelldavis/terraform-aws-iam-group)
 
 ## Todo
 
