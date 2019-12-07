@@ -2,13 +2,15 @@
 # Create IAM user 
 
 resource "aws_iam_user" "user" {
-  for_each = var.users
+  for_each = {for user in var.users: user.name => user}
 
   name          = each.key
   path          = each.value["path"]
   force_destroy = each.value["force_destroy"]
 
-  tags = merge(var.tags, map("EmailAddress", each.value["tag_email"]))
+  permissions_boundary = each.value["permissions_boundary"]
+
+  tags = merge(var.tags, map("EmailAddress", each.value["email"]))
 }
 
 # Create list of users with API access
@@ -25,6 +27,8 @@ resource "aws_iam_access_key" "accesskey" {
 
   user    = each.key
   pgp_key = var.pgp_key
+
+  depends_on = [ aws_iam_user.user ]
 }
 
 # Create list of users with console access
@@ -45,6 +49,12 @@ resource "aws_iam_user_login_profile" "profile" {
   user    = each.key
   pgp_key = var.pgp_key
 
+  password_length = var.password_length
+
+  password_reset_required = var.password_reset_required
+
+  depends_on = [ aws_iam_user.user ]
+
   lifecycle {
     ignore_changes = [ password_length, password_reset_required, pgp_key ]
   }
@@ -52,7 +62,8 @@ resource "aws_iam_user_login_profile" "profile" {
 
 # Add users to existing group(s)
 resource "aws_iam_user_group_membership" "group" {
-  for_each = var.users
+  for_each = {for user in var.users: user.name => user}
+  #for_each = var.users
 
   user   = each.key
   groups = each.value["groups"]

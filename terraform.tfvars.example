@@ -1,20 +1,22 @@
-users = {
-  "foo" = {
-    name          = "foo"
-    path          = "/"
-    force_destroy = true
-    tag_email     = "foo@domain"
-    groups        = [ "Developer" ]
-    console       = true
-    api           = true
+users = [
+  {
+    name                 = "foo"
+    path                 = "/"
+    force_destroy        = true
+    tag_email            = "foo@domain"
+    groups               = [ "Developer" ]
+    console              = true
+    api                  = true
+    permissions_boundary = ""
+  },
+  {
+    name                 = "bar"
+    path                 = "/"
+    force_destroy        = true
+    tag_email            = "bar@domain"
+    groups               = [ "Admin" ]
+    console              = false
+    api                  = true
+    permissions_boundary = ""
   }
-  "bar" = {
-    name          = "bar"
-    path          = "/"
-    force_destroy = true
-    tag_email     = "bar@domain"
-    groups        = [ "Admin" ]
-    console       = false
-    api           = true
-  }
-}
+]
